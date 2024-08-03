@@ -1,7 +1,7 @@
 variable "s3bucketname" {
   description = "The name of the S3 bucket created"
   type        = string
-  default     = "luqmans3310720242148"
+  default     = "lcchua-s3-030820241537"
 }
 
 variable "env" {
@@ -19,19 +19,19 @@ variable "department" {
 variable "vpc_name" {
   description = "The VPC Name to use"
   type        = string
-  default     = "luqman-tf-vpc"
+  default     = "lcchua-tf-vpc"
 }
 
 variable "subnet_name" {
   description = "The Subnet Name to use"
   type        = string
-  default     = "luqman-tf-public-subnet-az1"
+  default     = "lcchua-tf-public-subnet-az1"
 }
 
 variable "sg_name" {
   description = "The SG Name to create SG with"
   type        = string
-  default     = "luqman-sg-allow-http-https-ssh-from-anywhere-tf-module"
+  default     = "lcchua-sg-allow-http-https-ssh-from-anywhere-tf-module"
 }
 
 variable "ami_id" {
@@ -43,7 +43,7 @@ variable "ami_id" {
 variable "ec2_name" {
   description = "Name of EC2"
   type        = string
-  default     = "my-sample-ec2-luqman-from-tf" # Replace with your preferred EC2 Instance Name 
+  default     = "lcchua-ec2-from-tf-module"
 }
 
 variable "instance_type" {
@@ -55,5 +55,5 @@ variable "instance_type" {
 variable "key_name" {
   description = "Name of EC2 Key Pair"
   type        = string
-  default     = "luqman-second-useast-1" # Replace with your own key pair name (without .pem extension) that you have downloaded from AWS console previously
+  default     = "lcchua-useast1-30072024"
 }
