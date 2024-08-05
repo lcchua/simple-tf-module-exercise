@@ -1,6 +1,5 @@
 module "lcchua-vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  version = "5.1.2"
 
   name = var.vpc_name
   cidr = "10.0.0.0/16"
@@ -28,42 +27,42 @@ output "lcchua-vpc-arn" {
 
 module "lcchua-http-https-ssh-sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "4.13.0"
 
   name        = var.sg_name
   description = "Security group for web-server with http-https-ssh ports"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = module.lcchua-vpc.default_vpc_id
 
   //ingress_cidr_blocks = ["10.10.0.0/16"]
-  ingress_cidr_blocks = [
+  ingress_with_cidr_blocks = [
     {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      description = "HTTP"
+      cidr_blocks = "0.0.0.0/0"
     },
     {
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      description = "HTTPS"
+      cidr_blocks = "0.0.0.0/0"
     },
     {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      description = "SSH"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
 
-  egress_with_cidr_blocks = [
-    {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
+  egress_rules = ["all-all"]
+
+  tags  = {
+    Name        = "lcchua-http-https-ssh-sg"
+    Environment = var.env
+  }
 }
 output "lcchua-http-https-ssh-sg-id" {
   value = module.lcchua-http-https-ssh-sg.security_group_id
