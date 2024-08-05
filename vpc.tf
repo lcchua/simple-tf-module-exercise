@@ -30,7 +30,7 @@ module "lcchua-http-https-ssh-sg" {
 
   name        = var.sg_name
   description = "Security group for web-server with http-https-ssh ports"
-  vpc_id      = module.lcchua-vpc.default_vpc_id
+  vpc_id      = module.lcchua-vpc.vpc_id
 
   //ingress_cidr_blocks = ["10.10.0.0/16"]
   ingress_with_cidr_blocks = [
