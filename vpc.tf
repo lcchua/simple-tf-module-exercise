@@ -35,7 +35,8 @@ module "web_server_sg" {
   description = "Security group for web-server with HTTP ports open within VPC"
   vpc_id      = module.vpc.vpc_id
 
-  ingress_cidr_blocks = ["10.10.0.0/16"]
+//  ingress_cidr_blocks = ["10.10.0.0/16"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 }
 output "web_server_sg_id" {
   value = module.web_server_sg.security_group_id
@@ -45,7 +46,10 @@ module "ssh_sg" {
   source  = "terraform-aws-modules/security-group/aws//modules/ssh"
 
   name = var.sg_name
+  description = "Security group for ssh"
   vpc_id = module.vpc.vpc_id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 }
 output "ssh_sg" {
   value = module.ssh_sg.security_group_id

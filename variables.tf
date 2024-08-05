@@ -31,7 +31,7 @@ variable "subnet_name" {
 variable "sg_name" {
   description = "The SG Name to create SG with"
   type        = string
-  default     = "lcchua-sg-allow-http-https-ssh-tf-module"
+  default     = "lcchua-sg-allow-http-ssh-tf-module"
 }
 
 variable "ami_id" {
