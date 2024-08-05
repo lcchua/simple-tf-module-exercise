@@ -22,13 +22,13 @@ module "lcchua-vpc" {
     Cohort = "CE7"
   }
 }
-output "lcchua-vpc-id" {
-  value = module.vpc.vpc_id
+output "lcchua-vpc-arn" {
+  value = module.lcchua-vpc.vpc_arn
 }
 
 module "lcchua-http-https-ssh-sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "5.1.2"
+  version = "4.13.0"
 
   name        = var.sg_name
   description = "Security group for web-server with http-https-ssh ports"
