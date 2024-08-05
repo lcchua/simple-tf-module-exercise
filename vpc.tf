@@ -1,5 +1,6 @@
-module "vpc" {
+module "lcchua-vpc" {
   source = "terraform-aws-modules/vpc/aws"
+  version = "5.1.2"
 
   name = var.vpc_name
   cidr = "10.0.0.0/16"
@@ -21,15 +22,11 @@ module "vpc" {
     Cohort = "CE7"
   }
 }
-
-output "vpc_id" {
+output "lcchua-vpc-id" {
   value = module.vpc.vpc_id
 }
-output "vpc_arn" {
-  value = module.vpc.vpc_arn
-}
 
-module "sg_name" {
+module "lcchua-http-https-ssh-sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.2"
 
@@ -68,6 +65,6 @@ module "sg_name" {
     }
   ]
 }
-output "sg_id" {
-  value = module.web_server_sg.security_group_id
+output "lcchua-http-https-ssh-sg-id" {
+  value = module.lcchua-http-https-ssh-sg.security_group_id
 }
