@@ -19,7 +19,7 @@ variable "department" {
 variable "vpc_name" {
   description = "The VPC Name to use"
   type        = string
-  default     = "lcchua-tf-vpc"
+  default     = "lcchua-vpc-tf-module"
 }
 
 variable "subnet_name" {
@@ -31,7 +31,7 @@ variable "subnet_name" {
 variable "sg_name" {
   description = "The SG Name to create SG with"
   type        = string
-  default     = "lcchua-sg-allow-http-https-ssh-from-anywhere-tf-module"
+  default     = "lcchua-sg-allow-http-https-ssh-tf-module"
 }
 
 variable "ami_id" {

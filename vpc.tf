@@ -1,7 +1,7 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "lcchua-vpc-tf-module-with-igw"
+  name = var.vpc_name
   cidr = "10.0.0.0/16"
 
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -15,7 +15,7 @@ module "vpc" {
 
   tags = {
     Terraform = "true"
-    Environment = "dev"
+    Environment = var.env
     Created_by = "lcchua"
     Cohort = "CE7"
   }
@@ -31,7 +31,7 @@ output "vpc_arn" {
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
-  name        = "lcchua-tf-module-web-server_sg"
+  name        = var.sg_name
   description = "Security group for web-server with HTTP ports open within VPC"
   vpc_id      = module.vpc.vpc_id
 
