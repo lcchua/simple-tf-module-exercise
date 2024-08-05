@@ -11,7 +11,8 @@ module "vpc" {
 # Note that enable_dns_support and enable_dns_hostnames are defaulted 
 # True in the TF Registry VPC module
 //  enable_nat_gateway = true
-  enable_vpn_gateway = true
+  enable_vpn_gateway      = true
+  map_public_ip_on_launch = true
 
   tags = {
     Terraform = "true"
@@ -28,29 +29,45 @@ output "vpc_arn" {
   value = module.vpc.vpc_arn
 }
 
-module "web_server_sg" {
-  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+module "sg_name" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.1.2"
 
   name        = var.sg_name
-  description = "Security group for web-server with HTTP ports open within VPC"
+  description = "Security group for web-server with http-https-ssh ports"
   vpc_id      = module.vpc.vpc_id
 
-//  ingress_cidr_blocks = ["10.10.0.0/16"]
-  ingress_cidr_blocks = ["0.0.0.0/0"]
+  //ingress_cidr_blocks = ["10.10.0.0/16"]
+  ingress_cidr_blocks = [
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
 }
-output "web_server_sg_id" {
+output "sg_id" {
   value = module.web_server_sg.security_group_id
-}
-
-module "ssh_sg" {
-  source  = "terraform-aws-modules/security-group/aws//modules/ssh"
-
-  name = var.sg_name
-  description = "Security group for ssh"
-  vpc_id = module.vpc.vpc_id
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-}
-output "ssh_sg" {
-  value = module.ssh_sg.security_group_id
 }
