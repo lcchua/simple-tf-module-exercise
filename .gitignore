@@ -2,6 +2,7 @@
 **/.terraform/*
 .terraform.lock.hcl
 terraform_out
+terraform
 
 # .tfstate files
 *.tfstate
