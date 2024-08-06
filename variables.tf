@@ -17,9 +17,9 @@ variable "vpc_name" {
 }
 
 variable "sg_name" {
-  description = "Security group for http-https-ssh"
+  description = "Security group for http-https-ssh-mysql"
   type        = string
-  default     = "lcchua-sg-http-https-ssh-tf-module"
+  default     = "lcchua-sg-http-https-ssh-mysql-tf-module"
 }
 
 variable "ec2_name" {
