@@ -1,8 +1,10 @@
 # Local .terraform directories
 **/.terraform/*
-.terraform.lock.hcl
+.terraform.lock.hcl*
 terraform_out
-terraform
+terraform*
+.terraform/modules
+modules.json
 
 # .tfstate files
 *.tfstate
@@ -40,3 +42,4 @@ override.tf.json
 terraform.rc
 
 .DS_Store
+LICENSE.txt
