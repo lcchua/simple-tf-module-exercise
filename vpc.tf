@@ -54,7 +54,7 @@ module "lcchua-http-https-ssh-mysql-sg" {
       protocol    = "tcp"
       description = "SSH"
       cidr_blocks = "10.10.0.0/16"
-    }
+    },
     {
       from_port   = 3306
       to_port     = 3306
