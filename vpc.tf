@@ -25,11 +25,11 @@ output "lcchua-vpc-arn" {
   value = module.lcchua-vpc.vpc_arn
 }
 
-module "lcchua-http-https-ssh-sg" {
+module "lcchua-http-https-ssh-mysql-sg" {
   source  = "terraform-aws-modules/security-group/aws"
 
   name        = var.sg_name
-  description = "Security group for web-server with http-https-ssh ports"
+  description = "Security group for http-https-ssh-mysql ports"
   vpc_id      = module.lcchua-vpc.vpc_id
 
   //ingress_cidr_blocks = ["10.10.0.0/16"]
@@ -39,31 +39,38 @@ module "lcchua-http-https-ssh-sg" {
       to_port     = 80
       protocol    = "tcp"
       description = "HTTP"
-      cidr_blocks = "0.0.0.0/0"
+      cidr_blocks = "10.10.0.0/16"
     },
     {
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
       description = "HTTPS"
-      cidr_blocks = "0.0.0.0/0"
+      cidr_blocks = "10.10.0.0/16"
     },
     {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
       description = "SSH"
-      cidr_blocks = "0.0.0.0/0"
+      cidr_blocks = "10.10.0.0/16"
+    }
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      description = "MySQL/Aurora"
+      cidr_blocks = "10.10.0.0/16"
     }
   ]
 
   egress_rules = ["all-all"]
 
   tags  = {
-    Name        = "lcchua-http-https-ssh-sg"
+    Name        = "lcchua-http-https-ssh-mysql-sg"
     Environment = var.env
   }
 }
-output "lcchua-http-https-ssh-sg-id" {
-  value = module.lcchua-http-https-ssh-sg.security_group_id
+output "lcchua-http-https-ssh-mysql-sg-id" {
+  value = module.lcchua-http-https-ssh-mysql-sg.security_group_id
 }
